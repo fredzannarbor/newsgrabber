@@ -37,10 +37,7 @@ newstr = ""
 for i in newarray:
 	newstr += i + ". "
 
-newstr = newstr.replace("</p>, ", "")
-newstr = newstr.replace("\u2019", "'")
-newstr = newstr.replace("\\xa0", " ")
-newstr = newstr.replace(",\n.", "")
+newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace(",\n,", "")
 
 print(newstr)
 
