@@ -23,6 +23,18 @@ for i in array:
 		if j in i:
 			newarray.append(i)
 
+newerarray = []
+
+i = 0
+while i < len(newarray):
+	if newarray[i] in newerarray:
+		pass
+	else:
+		newerarray.append(newarray[i])
+	i += 1
+
+newarray = newerarray
+
 newstr = ""
 
 for i in newarray:
