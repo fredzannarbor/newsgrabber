@@ -6,52 +6,57 @@ import re
 ## This will basically extract any novel information or scoops from a story.
 
 url = raw_input("Input a URL:\n>")
-urlopen = urllib2.urlopen(url)
-read = urlopen.read()
-soup = BeautifulSoup(read, "html.parser")
 
-paras = soup.find_all('p')
-headline = soup.find_all(class_="lede-headline__highlighted")
+def getScoopz(url):
+	
+	urlopen = urllib2.urlopen(url)
+	read = urlopen.read()
+	soup = BeautifulSoup(read, "html.parser")
 
-phrases = ['hearing', 'source', 'said the people', 'familiar', 'person']
+	paras = soup.find_all('p')
+	headline = soup.find_all(class_="lede-headline__highlighted")
 
-array = str(paras).split("<p>")
+	phrases = ['hearing', 'source', 'said the people', 'familiar', 'person']
 
-newarray = []
-for i in array:
-	for j in phrases:
-		if j in i:
-			newarray.append(i)
+	array = str(paras).split("<p>")
 
-newerarray = []
+	newarray = []
+	for i in array:
+		for j in phrases:
+			if j in i:
+				newarray.append(i)
 
-i = 0
-while i < len(newarray):
-	if newarray[i] in newerarray:
-		pass
-	else:
-		newerarray.append(newarray[i])
-	i += 1
+	newerarray = []
 
-newarray = newerarray
+	i = 0
+	while i < len(newarray):
+		if newarray[i] in newerarray:
+			pass
+		else:
+			newerarray.append(newarray[i])
+		i += 1
 
-newstr = ""
+	newarray = newerarray
 
-for i in newarray:
-	newstr += i + "\n\n"
+	newstr = ""
 
-increplace = newstr.replace("Inc. ", "")
+	for i in newarray:
+		newstr += i + "\n\n"
 
-newarray = increplace.split('. ')
+	increplace = newstr.replace("Inc. ", "")
 
-newstr = ""
+	newarray = increplace.split('. ')
 
-for i in newarray:
-	newstr += i + ". "
+	newstr = ""
 
-newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace(",\n,", "")
+	for i in newarray:
+		newstr += i + ". "
 
-print(newstr)
+	newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace(",\n,", "")
+
+	return(newstr)
+
+print(getScoopz(url))
 
 # stringremove2 = stringremove1.replace("</p>", "")
 # stringremove3 = stringremove2.replace("\u2019", "'")
