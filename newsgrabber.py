@@ -43,6 +43,8 @@ def getScoopz(url):
 	for i in newarray:
 		newstr += i + "\n\n"
 
+	## Take out "Inc" because it's totally unnecessary and also screws up the period split
+
 	increplace = newstr.replace("Inc. ", "")
 
 	newarray = increplace.split('. ')
@@ -59,7 +61,6 @@ def getScoopz(url):
 	## Remove links
 
 	newstr = re.sub(r'<[^>]*>', '', newstr)
-
 
 	return(newstr)
 
