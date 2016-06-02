@@ -2,6 +2,8 @@ import urllib2
 from bs4 import BeautifulSoup
 import requests
 
+## This will basically extract any novel information or scoops from a story.
+
 url = raw_input("Input a URL:\n>")
 urlopen = urllib2.urlopen(url)
 read = urlopen.read()
