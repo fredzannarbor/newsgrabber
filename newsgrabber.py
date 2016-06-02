@@ -8,7 +8,7 @@ import re
 url = raw_input("Input a URL:\n>")
 
 def getScoopz(url):
-	
+
 	urlopen = urllib2.urlopen(url)
 	read = urlopen.read()
 	soup = BeautifulSoup(read, "html.parser")
@@ -16,7 +16,7 @@ def getScoopz(url):
 	paras = soup.find_all('p')
 	headline = soup.find_all(class_="lede-headline__highlighted")
 
-	phrases = ['hearing', 'source', 'said the people', 'familiar', 'person']
+	phrases = ['hearing', 'source', 'said the people', 'familiar', 'person', 'matter']
 
 	array = str(paras).split("<p>")
 
@@ -52,7 +52,14 @@ def getScoopz(url):
 	for i in newarray:
 		newstr += i + ". "
 
+	## Remove codes
+
 	newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace(",\n,", "")
+
+	## Remove links
+
+	newstr = re.sub(r'<[^>]*>', '', newstr)
+
 
 	return(newstr)
 
