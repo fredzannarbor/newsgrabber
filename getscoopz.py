@@ -33,7 +33,7 @@ class GetScoopz(object):
 
 			paras = str(paras).replace("Inc. ", "")
 
-			phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'person', 'matter', 'said the']
+			phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'matter', 'said the']
 
 			array = str(paras).split("<p>")
 
@@ -78,11 +78,14 @@ class GetScoopz(object):
 
 			newstr = re.sub(r'<[^>]*>', '', newstr)
 
+			if '"' in newstr:
+				newstr = "\n" + "There are no scoops!"
+
 			if newstr != "":
 				newerstring += "\n" + newstr
 			elif skip == True:
 				pass
 			else:
-				newerstring += "\n" + "There's no news!"
+				newerstring += "\n" + "There are no scoops!"
 
 		return(newerstring)

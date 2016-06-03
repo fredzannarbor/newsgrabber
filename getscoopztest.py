@@ -22,7 +22,7 @@ def getScoopz():
 
 	paras = str(paras).replace("Inc. ", "")
 
-	phrases = ['hearing', 'source', 'person familiar', 'person', 'matter', 'said the']
+	phrases = ['hearing', 'source', 'person familiar', 'person', 'matter', 'said the', 'has learned']
 
 	array = str(paras).split("<p>")
 
@@ -41,8 +41,6 @@ def getScoopz():
 			for k in phrases:
 				if k in j:
 					splitarray.append(j)
-
-	print(splitarray)
 
 	newerarray = []
 
@@ -69,9 +67,12 @@ def getScoopz():
 
 	newstr = re.sub(r'<[^>]*>', '', newstr)
 
+	if '"' in newstr:
+		return("There are no scoops!")
+
 	if newstr != "":
 		return(newstr)
 	else:
-		return("There's no news!")
+		return("There are no scoops!")
 
 print(getScoopz())

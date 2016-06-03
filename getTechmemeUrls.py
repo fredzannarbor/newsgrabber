@@ -18,8 +18,9 @@ class TechmemeUrls(object):
 		soup = BeautifulSoup(read, "html.parser")
 
 		heds = soup.find_all(class_="L4")
-		heds2 = soup.find_all(class_="L2")
 		heds3 = soup.find_all(class_="L3")
+		heds2 = soup.find_all(class_="L2")
+		heds1 = soup.find_all(class_="L1")
 		hedstr = ""
 		urls = []
 		
@@ -27,13 +28,24 @@ class TechmemeUrls(object):
 			url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(i))
 			hedstr = re.sub(r'<[^>]*>', '', str(i))
 			urls.append([hedstr,url[0]])
-		for i in heds2:
-			url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(i))
-			hedstr = re.sub(r'<[^>]*>', '', str(i))
-			urls.append([hedstr,url[0]])
 		for i in heds3:
 			url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(i))
 			hedstr = re.sub(r'<[^>]*>', '', str(i))
 			urls.append([hedstr,url[0]])
+		for i in heds2:
+			url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(i))
+			hedstr = re.sub(r'<[^>]*>', '', str(i))
+			urls.append([hedstr,url[0]])
+		for i in heds1:
+			url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(i))
+			hedstr = re.sub(r'<[^>]*>', '', str(i))
+			if url == []:
+				pass
+			else:
+			    urls.append([hedstr,url[0]])
+
 
 		return(urls)
+
+newMeme = TechmemeUrls()
+newMeme.getTechmemeUrls()
