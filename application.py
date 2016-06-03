@@ -20,7 +20,7 @@ def home(object=None):
 
 	scoops = scoop.getScoopz(urls)
 
-	return render_templace('hello.html')
+	return render_template('hello.html')
 
 if __name__ == '__main__':
 	application.run()
