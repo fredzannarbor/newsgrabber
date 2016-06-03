@@ -16,7 +16,7 @@ class GetScoopz(object):
 
 		for k in url:
 
-			newerstring += "\n" + "HEADLINE: " + k[0]
+			newerstring += "\n" + "HEADLINE: " + k[0] + "\n"
 
 			try:	
 				urlopen = urllib2.urlopen(k[1])
@@ -28,9 +28,8 @@ class GetScoopz(object):
 			soup = BeautifulSoup(read, "html.parser")
 
 			paras = soup.find_all('p')
-			headline = soup.find_all(class_="lede-headline__highlighted")
 
-			phrases = ['hearing', 'source', 'familiar', 'person', 'matter']
+			phrases = ['hearing', 'source', 'familiar', 'person', 'matter', 'said the']
 
 			array = str(paras).split("<p>")
 
@@ -65,17 +64,12 @@ class GetScoopz(object):
 
 			newstr = ""
 
-			i = 0
-
-			## Get rid of an annoying last period
-
-			while i < len(newarray) - 1:
-				newstr += newarray[i] + ". "
-				i += 1
+			for i in newarray:
+				newstr += i + ". "
 
 			## Remove codes
 
-			newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace(",\n,", "")
+			newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace("\n.","")
 
 			## Remove links
 

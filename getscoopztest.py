@@ -65,6 +65,8 @@ def getScoopz():
 
 	newstr = re.sub(r'<[^>]*>', '', newstr)
 
+	print(newstr)
+
 	if newstr != "":
 		return(newstr)
 	else:
