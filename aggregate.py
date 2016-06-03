@@ -12,37 +12,33 @@ scoop = getscoopz.GetScoopz()
 
 info = scoop.getScoopz(url)
 
-print info
+headline = info[0]
+publication = info[1]
+text = info[2]
 
-# print "\nOriginal:\n"
+print "\nOld:\n"
+print info[2]
 
-# for i in strings:
-# 	print i
+split = text.split(', ')
 
-# split = []
+phrases = ['hearing', 'source', 'person familiar', 'person', 'matter', 
+					'said the', 'has learned', 'not to be named']
+checkedsplit = []
 
-# for i in strings:
-# 	split.append(i.split(','))
+for i in split:
+	addstring = True
+	for k in phrases:
+		if k in i:
+			addstring = False
+	if addstring == True:
+		checkedsplit.append(i)
 
-# phrases = ['hearing', 'source', 'person familiar', 'person', 'matter', 
-# 					'said the', 'has learned', 'not to be named']
-# checkedsplit = []
+i = 0
+newstr = ""
 
-# for i in split:
-# 	addstring = True
-# 	for j in i:
-# 		for k in phrases:
-# 			if k in j:
-# 				addstring = False
-# 		if addstring == True:
-# 			checkedsplit.append(j)
+while i < len(checkedsplit):
+	newstr += checkedsplit[i] + ", " + publication + " reports."
+	i += 1
 
-# i = 0
-# newstr = ""
-
-# while i < len(checkedsplit):
-# 	newstr += checkedsplit[i] + ", Bloomberg reports. "
-# 	i += 1
-
-# print "\nNew:\n"
-# print newstr + "\n"
+print "\nNew:\n"
+print newstr + "\n"

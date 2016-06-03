@@ -11,14 +11,15 @@ class GetScoopz(object):
 
 	def getScoopz(self, url):
 
+		scoopstrue = True
+
 		newerstring = ""
 
 		skip = False
 
-
 		for k in url:
 
-			newerstring += "\n" + "HEADLINE: " + k[0]
+			headline = k[0]
 
 			try:	
 				urlopen = urllib2.urlopen(k[1])
@@ -33,10 +34,14 @@ class GetScoopz(object):
 
 			## try to get the name of the publication from the URL
 
-			publications = ["Recode", "TechCrunch", "Bloomberg"]
+			publications = ["recode", "techcrunch", "bloomberg", "theinformation"]
 
-			print k[1].split(".")
-
+			pubsplit = k[1].split("//")
+			pubsplit = pubsplit[1].split(".")
+			for i in pubsplit:
+				if i in publications:
+					publication = i
+				
 			paras = str(paras).replace("Inc. ", "")
 
 			phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'matter', 'said the']
@@ -74,7 +79,7 @@ class GetScoopz(object):
 			newstr = ""
 
 			for i in newarray:
-				newstr += i + "\n"
+				newstr += i
 
 			## Remove codes
 
@@ -93,5 +98,6 @@ class GetScoopz(object):
 				pass
 			else:
 				newerstring += "\n" + "There are no scoops!"
+				scoopstrue = False
 
-		return(newerstring)
+		return([headline, publication, newerstring, scoopstrue])
