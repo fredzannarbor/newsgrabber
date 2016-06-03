@@ -31,6 +31,12 @@ class GetScoopz(object):
 
 			paras = soup.find_all('p')
 
+			## try to get the name of the publication from the URL
+
+			publications = ["Recode", "TechCrunch", "Bloomberg"]
+
+			print k[1].split(".")
+
 			paras = str(paras).replace("Inc. ", "")
 
 			phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'matter', 'said the']

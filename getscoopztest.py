@@ -19,6 +19,15 @@ def getScoopz():
 	soup = BeautifulSoup(read, "html.parser")
 
 	paras = soup.find_all('p')
+	publication = soup.find_all('title')
+
+	publications = ["Recode", "TechCrunch", "Blooberg"]
+
+	pubsplit = str(publication).split(" ")
+
+	for i in pubsplit:
+		if i in publications:
+			pubreturn = i
 
 	paras = str(paras).replace("Inc. ", "")
 
