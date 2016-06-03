@@ -10,33 +10,48 @@ def getScoopz():
 	url = raw_input("Enter a URL\n>")
 
 	try:	
-		opener = urllib2.urlopen(url)
+		urlopen = urllib2.urlopen(url)
 	except:
+		skip = True
 		return("Can't open the site :(")
-
-	read = opener.read()
+	
+	read = urlopen.read()
 	soup = BeautifulSoup(read, "html.parser")
 
 	paras = soup.find_all('p')
 
-	phrases = ['hearing', 'source', 'familiar', 'person', 'matter', 'said the']
+	paras = str(paras).replace("Inc. ", "")
+
+	phrases = ['hearing', 'source', 'person familiar', 'person', 'matter', 'said the']
 
 	array = str(paras).split("<p>")
 
 	newarray = []
+
 	for i in array:
 		for j in phrases:
 			if j in i:
 				newarray.append(i)
 
+	splitarray = []
+
+	for i in newarray:
+		s_array = i.split(". ")
+		for j in s_array:
+			for k in phrases:
+				if k in j:
+					splitarray.append(j)
+
+	print(splitarray)
+
 	newerarray = []
 
 	i = 0
-	while i < len(newarray):
-		if newarray[i] in newerarray:
+	while i < len(splitarray):
+		if splitarray[i] in newerarray:
 			pass
 		else:
-			newerarray.append(newarray[i])
+			newerarray.append(splitarray[i])
 		i += 1
 
 	newarray = newerarray
@@ -44,28 +59,15 @@ def getScoopz():
 	newstr = ""
 
 	for i in newarray:
-		newstr += i + "\n\n"
-
-	## Take out "Inc" because it's totally unnecessary and also screws up the period split
-
-	increplace = newstr.replace("Inc. ", "")
-
-	newarray = increplace.split('. ')
-
-	newstr = ""
-
-	for i in newarray:
-		newstr += i + ". "
+		newstr += i + "\n"
 
 	## Remove codes
 
-	newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace("\n.","")
+	newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace("\n\n.","")
 
 	## Remove links
 
 	newstr = re.sub(r'<[^>]*>', '', newstr)
-
-	print(newstr)
 
 	if newstr != "":
 		return(newstr)
