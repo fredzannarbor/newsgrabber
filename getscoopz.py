@@ -21,7 +21,8 @@ class GetScoopz(object):
 			try:	
 				urlopen = urllib2.urlopen(k[1])
 			except:
-				newerstring += "\n" + "Can't open the site :(" + "\n"
+				skip = True
+				newerstring += "\n" + "Can't open the site :("
 
 			read = urlopen.read()
 			soup = BeautifulSoup(read, "html.parser")
@@ -82,6 +83,8 @@ class GetScoopz(object):
 
 			if newstr != "":
 				newerstring += "\n" + newstr
+			elif skip == True:
+				pass
 			else:
 				newerstring += "\n" + "There's no news!"
 
