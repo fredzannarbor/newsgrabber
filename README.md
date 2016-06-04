@@ -4,3 +4,5 @@ Basically every "scoop" that's buried in a story (that isn't exclusive) is flagg
 against the entire story to find out where all the scoops or interesting nuggets are. This doesn't work for exclusives or anything
 like that for the time being (I'll get there eventually) and is largely a project to play around with website manipulation and
 Beautiful Soup.
+
+Oh, also, we're going to go ahead and automatically aggregate it.
