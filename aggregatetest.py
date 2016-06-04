@@ -11,13 +11,12 @@ url = [["Snapchat", urlinput]]
 scoop = getscoopz.GetScoopz()
 
 info = scoop.getScoopz(url)
+print info
 
 headline = info[0]
 publication = info[1]
 text = info[2]
 scoopstrue = info[3]
-
-print info
 
 if scoopstrue == True:
 	print "\nOld:\n"
@@ -26,7 +25,7 @@ if scoopstrue == True:
 	split = text.split(', ')
 
 	phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'person', 'matter', 
-						'said the', 'has learned', 'not to be named']
+						'has learned', 'not to be named']
 	checkedsplit = []
 
 	for i in split:

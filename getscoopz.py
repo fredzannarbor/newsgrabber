@@ -62,7 +62,7 @@ class GetScoopz(object):
 				for j in s_array:
 					for k in phrases:
 						if k in j:
-							splitarray.append(j)
+							splitarray.append(j + ". ")
 
 			newerarray = []
 
