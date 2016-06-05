@@ -4,41 +4,60 @@ import requests
 import re
 import getscoopz
 
-urlinput = raw_input("Please enter a URL\n>")
+class Aggregator(object):
 
-url = [["Snapchat", urlinput]]
+	def __init__(self):
+		pass
 
-scoop = getscoopz.GetScoopz()
+	def aggregate(url):
 
-info = scoop.getScoopz(url)
+		scoop = getscoopz.GetScoopz()
 
-headline = info[0]
-publication = info[1]
-text = info[2]
+		info = scoop.getScoopz(url)
+		print info
 
-print "\nOld:\n"
-print info[2]
+		headline = info[0]
+		publication = info[1]
+		text = info[2]
+		scoopstrue = info[3]
 
-split = text.split(', ')
+		if scoopstrue == True:
+			print "\nOld:\n"
+			print info[2]
 
-phrases = ['hearing', 'source', 'person familiar', 'person', 'matter', 
-					'said the', 'has learned', 'not to be named']
-checkedsplit = []
+			split = text.split(', ')
 
-for i in split:
-	addstring = True
-	for k in phrases:
-		if k in i:
-			addstring = False
-	if addstring == True:
-		checkedsplit.append(i)
+			phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'person', 'matter', 
+								'has learned', 'not to be named', 'said the people']
+			checkedsplit = []
+			newsplit = []
+			newersplit = []
+			
+			for i in split:
+				newsplit.append(i.split("."))
 
-i = 0
-newstr = ""
+			for k in newsplit:
+				for i in k:
+					newersplit.append(i)
 
-while i < len(checkedsplit):
-	newstr += checkedsplit[i] + ", " + publication + " reports."
-	i += 1
+			for i in newersplit:
+				addstring = True
+				for k in phrases:
+					if k in i:
+						addstring = False
+					elif i == " " or i == "":
+						addstring = False
+				if addstring == True:
+					checkedsplit.append(i)
 
-print "\nNew:\n"
-print newstr + "\n"
+			i = 0
+			newstr = ""
+
+			while i < len(checkedsplit):
+				newstr += checkedsplit[i] + ", " + publication + " reports. "
+				i += 1
+
+			print "NEW:\n" + newstr + "\n"
+		else:
+			print headline + "\n"
+			print "There are no scoops!"
