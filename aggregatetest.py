@@ -24,7 +24,7 @@ if scoopstrue == True:
 
 	split = text.split('.')
 
-	phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'person', 'matter', 
+	phrases = ['hearing', 'source', 'sources', 'person familiar', 'people familiar', 'person', 'matter', 
 						'has learned', 'not to be named', 'said the people']
 	
 	checkedsplit1 = []
@@ -50,12 +50,12 @@ if scoopstrue == True:
 		addstring = True
 		for k in phrases:
 			if k in i:
+				print i
 				addstring = False
 			elif i == " " or i == "":
 				addstring = False
 		if addstring == True:
 			print i
-			checkedsplit1.append(i)
 
 	i = 0
 	newstr = ""

@@ -21,7 +21,7 @@ def getScoopz():
 	paras = soup.find_all('p')
 	publication = soup.find_all('title')
 
-	publications = ["Recode", "TechCrunch", "Blooberg"]
+	publications = ["Recode", "TechCrunch", "Bloomberg"]
 
 	pubsplit = str(publication).split(" ")
 

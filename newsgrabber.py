@@ -12,4 +12,9 @@ scoop = getscoopz.GetScoopz()
 
 urls = tmUrls.getTechmemeUrls()
 
-print(scoop.getScoopz(urls))
+i = 0
+while i < len(urls):
+	print urls[i]
+	info = scoop.getScoopz(urls[i])
+	print info[2]
+	i += 1

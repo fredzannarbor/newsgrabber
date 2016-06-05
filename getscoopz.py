@@ -17,16 +17,17 @@ class GetScoopz(object):
 
 		skip = False
 
-		for k in url:
+		headline = url[0]
+		urlthing = url[1]
 
-			headline = k[0]
+		try:	
+			urlopen = urllib2.urlopen(urlthing)
+		except:
+			skip = True
+			newerstring += "\n" + "Can't open the site :("
+		
+		if skip == False:
 
-			try:	
-				urlopen = urllib2.urlopen(k[1])
-			except:
-				skip = True
-				newerstring += "\n" + "Can't open the site :("
-			
 			read = urlopen.read()
 			soup = BeautifulSoup(read, "html.parser")
 
@@ -34,10 +35,14 @@ class GetScoopz(object):
 
 			## try to get the name of the publication from the URL
 
-			publications = ["recode", "techcrunch", "bloomberg", "theinformation"]
+			publications = ["recode", "techcrunch", "bloomberg", "theinformation", "vanityfair", 
+								"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
+									"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
+									"backchannel", "adage", "medium"]
 
-			pubsplit = k[1].split("//")
+			pubsplit = urlthing.split("//")
 			pubsplit = pubsplit[1].split(".")
+			
 			for i in pubsplit:
 				if i in publications:
 					publication = i
@@ -94,8 +99,6 @@ class GetScoopz(object):
 
 			if newstr != "":
 				newerstring += "\n" + newstr
-			elif skip == True:
-				pass
 			else:
 				newerstring += "\n" + "There are no scoops!"
 				scoopstrue = False

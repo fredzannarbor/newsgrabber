@@ -44,7 +44,6 @@ class TechmemeUrls(object):
 			else:
 			    urls.append([hedstr,url[0]])
 
-
 		return(urls)
 
 newMeme = TechmemeUrls()
