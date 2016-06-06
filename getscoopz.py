@@ -12,6 +12,8 @@ class GetScoopz(object):
 
 	def getScoopz(self, url):
 
+		phrasecues = cues.Cues()
+
 		scoopstrue = True
 
 		newerstring = ""
@@ -39,7 +41,7 @@ class GetScoopz(object):
 			publications = ["recode", "techcrunch", "bloomberg", "theinformation", "vanityfair", 
 								"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
 									"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
-									"backchannel", "adage", "medium", "govinsider"]
+									"backchannel", "adage", "medium", "govinsider", "cnet", "reuters"]
 
 			pubcap = {'recode': 'Recode', 'techcrunch': 'TechCrunch', 'bloomberg': 'Bloomberg', 
 						'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
@@ -48,7 +50,7 @@ class GetScoopz(object):
 						'fusion': 'Fusion', 'anandtech': 'AnandTech', 'engadget': 'Engadget',
 						'latimes': 'Los Angeles Times', 'buzzfeed': 'BuzzFeed', 
 						'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
-						'adage': 'Ad Age', 'medium': 'Medium'}
+						'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters'}
 
 			pubsplit = urlthing.split("//")
 			pubsplit = pubsplit[1].split(".")
@@ -61,7 +63,10 @@ class GetScoopz(object):
 				
 			paras = str(paras).replace("Inc. ", "")
 
-			phrases = ['hearing', 'source', 'person familiar', 'people familiar', 'matter', 'said the']
+			if publication in phrasecues.phrases:
+				phrases = phrasecues.phrases[publication]
+			else:
+				phrases = phrasecues.phrases['General']
 
 			array = str(paras).split("<p>")
 
@@ -100,7 +105,9 @@ class GetScoopz(object):
 
 			## Remove codes
 
-			newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace("\n\n.","")
+			newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
+			newstr = newstr.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "")
+			newstr = newstr.replace("This copy is for your personal, non-commercial use only.", "")
 
 			## Remove links
 
