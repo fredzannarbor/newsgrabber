@@ -107,7 +107,6 @@ class GetScoopz(object):
 
 			newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
 			newstr = newstr.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "")
-			newstr = newstr.replace("This copy is for your personal, non-commercial use only.", "")
 
 			## Remove links
 
