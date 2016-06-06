@@ -14,7 +14,7 @@ urls = tmUrls.getTechmemeUrls()
 
 i = 0
 while i < len(urls):
-	print urls[i]
 	info = scoop.getScoopz(urls[i])
+	print 'Headline: ' + info[0]
 	print info[2]
 	i += 1
