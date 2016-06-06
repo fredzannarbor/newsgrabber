@@ -2,6 +2,7 @@ import urllib2
 from bs4 import BeautifulSoup
 import requests
 import re
+import cues
 
 class GetScoopz(object):
 
@@ -38,7 +39,16 @@ class GetScoopz(object):
 			publications = ["recode", "techcrunch", "bloomberg", "theinformation", "vanityfair", 
 								"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
 									"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
-									"backchannel", "adage", "medium"]
+									"backchannel", "adage", "medium", "govinsider"]
+
+			pubcap = {'recode': 'Recode', 'techcrunch': 'TechCrunch', 'bloomberg': 'Bloomberg', 
+						'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
+						'mic': 'Mic', 'venturebeat': 'VentureBeat', 'arstechnica': 'Ars Technica',
+						'motherboard': 'Vice Motherboard', 'ap': 'Associated Press',
+						'fusion': 'Fusion', 'anandtech': 'AnandTech', 'engadget': 'Engadget',
+						'latimes': 'Los Angeles Times', 'buzzfeed': 'BuzzFeed', 
+						'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
+						'adage': 'Ad Age', 'medium': 'Medium'}
 
 			pubsplit = urlthing.split("//")
 			pubsplit = pubsplit[1].split(".")
@@ -46,6 +56,8 @@ class GetScoopz(object):
 			for i in pubsplit:
 				if i in publications:
 					publication = i
+
+			publication = pubcap[publication]
 				
 			paras = str(paras).replace("Inc. ", "")
 
