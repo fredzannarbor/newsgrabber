@@ -13,7 +13,10 @@ class Cues(object):
 
 		thevergePhrases = ["According to sources,", "sources", "various sources"]
 
-		generalPhrases = ['person familiar', 'people familiar', 'souce familiar', 
+		buzzfeedPhrases = ['person familiar', 'people familiar', 'sources', 'source',
+								'source familiar', 'sources familiar']
+
+		generalPhrases = ['person familiar', 'people familiar', 'source familiar', 
 								'sources familiar']
 
 		self.phrases = {'TechCrunch': techcrunchPhrases,
@@ -21,5 +24,6 @@ class Cues(object):
 						'Recode': recodePhrases,
 						'WSJ': wsjPhrases,
 						'The Verge': thevergePhrases,
+						'BuzzFeed': buzzfeedPhrases,
 						'General': generalPhrases
 						}

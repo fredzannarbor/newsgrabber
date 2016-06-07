@@ -96,12 +96,12 @@ def getScoopz(url):
 		newstr = ""
 
 		for i in newarray:
-			newstr += i
+			newstr += "--- " + i + "\n"
 
 		## Remove codes
 
 		newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
-		newstr = newstr.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "")
+		newstr = newstr.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "").replace('\u2014',"")
 
 		## Remove links
 
