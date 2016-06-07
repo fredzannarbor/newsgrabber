@@ -2,86 +2,120 @@ import urllib2
 from bs4 import BeautifulSoup
 import requests
 import re
+import cues
 
-def getScoopz():
+def getScoopz(url):
 
-	newstr = ""
+	
+	phrasecues = cues.Cues()
 
-	url = raw_input("Enter a URL\n>")
+	scoopstrue = True
+
+	newerstring = ""
+
+	skip = False
+
+	headline = "Headline"
+	urlthing = url
 
 	try:	
-		urlopen = urllib2.urlopen(url)
+		urlopen = urllib2.urlopen(urlthing)
 	except:
 		skip = True
-		return("Can't open the site :(")
+		newerstring += "\n" + "Can't open the site :("
 	
-	read = urlopen.read()
-	soup = BeautifulSoup(read, "html.parser")
+	if skip == False:
 
-	paras = soup.find_all('p')
-	publication = soup.find_all('title')
+		read = urlopen.read()
+		soup = BeautifulSoup(read, "html.parser")
 
-	publications = ["Recode", "TechCrunch", "Bloomberg"]
+		paras = soup.find_all('p')
 
-	pubsplit = str(publication).split(" ")
+		## try to get the name of the publication from the URL
 
-	for i in pubsplit:
-		if i in publications:
-			pubreturn = i
+		publications = ["recode", "techcrunch", "bloomberg", "theinformation", "vanityfair", 
+							"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
+								"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
+								"backchannel", "adage", "medium", "govinsider", "cnet", "reuters"]
 
-	paras = str(paras).replace("Inc. ", "")
+		pubcap = {'recode': 'Recode', 'techcrunch': 'TechCrunch', 'bloomberg': 'Bloomberg', 
+					'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
+					'mic': 'Mic', 'venturebeat': 'VentureBeat', 'arstechnica': 'Ars Technica',
+					'motherboard': 'Vice Motherboard', 'ap': 'Associated Press',
+					'fusion': 'Fusion', 'anandtech': 'AnandTech', 'engadget': 'Engadget',
+					'latimes': 'Los Angeles Times', 'buzzfeed': 'BuzzFeed', 
+					'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
+					'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters'}
 
-	phrases = ['hearing', 'source', 'person familiar', 'person', 'matter', 'said the', 'has learned']
+		pubsplit = urlthing.split("//")
+		pubsplit = pubsplit[1].split(".")
+		
+		for i in pubsplit:
+			if i in publications:
+				publication = i
 
-	array = str(paras).split("<p>")
+		publication = pubcap[publication]
+			
+		paras = str(paras).replace("Inc. ", "")
 
-	newarray = []
-
-	for i in array:
-		for j in phrases:
-			if j in i:
-				newarray.append(i)
-
-	splitarray = []
-
-	for i in newarray:
-		s_array = i.split(". ")
-		for j in s_array:
-			for k in phrases:
-				if k in j:
-					splitarray.append(j)
-
-	newerarray = []
-
-	i = 0
-	while i < len(splitarray):
-		if splitarray[i] in newerarray:
-			pass
+		if publication in phrasecues.phrases:
+			phrases = phrasecues.phrases[publication]
 		else:
-			newerarray.append(splitarray[i])
-		i += 1
+			phrases = phrasecues.phrases['General']
 
-	newarray = newerarray
+		array = str(paras).split("<p>")
 
-	newstr = ""
+		newarray = []
 
-	for i in newarray:
-		newstr += i + "\n"
+		for i in array:
+			for j in phrases:
+				if j in i:
+					newarray.append(i)
 
-	## Remove codes
+		splitarray = []
 
-	newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ").replace("\n\n.","")
+		for i in newarray:
+			s_array = i.split(". ")
+			for j in s_array:
+				for k in phrases:
+					if k in j:
+						splitarray.append(j + ". ")
 
-	## Remove links
+		newerarray = []
 
-	newstr = re.sub(r'<[^>]*>', '', newstr)
+		i = 0
+		while i < len(splitarray):
+			if splitarray[i] in newerarray:
+				pass
+			else:
+				newerarray.append(splitarray[i])
+			i += 1
 
-	if '"' in newstr:
-		return("There are no scoops!")
+		newarray = newerarray
 
-	if newstr != "":
-		return(newstr)
-	else:
-		return("There are no scoops!")
+		newstr = ""
 
-print(getScoopz())
+		for i in newarray:
+			newstr += i
+
+		## Remove codes
+
+		newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
+		newstr = newstr.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "")
+
+		## Remove links
+
+		newstr = re.sub(r'<[^>]*>', '', newstr)
+
+		if '"' in newstr:
+			newstr = "No scoops/nuggets."
+
+		if newstr != "":
+			newerstring += newstr
+		else:
+			newerstring += "No scoops/nuggets"
+			scoopstrue = False
+
+	return([headline, publication, newerstring, scoopstrue])
+
+print getScoopz(raw_input("Please enter a URL\n>"))[2]

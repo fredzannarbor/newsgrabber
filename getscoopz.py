@@ -113,12 +113,12 @@ class GetScoopz(object):
 			newstr = re.sub(r'<[^>]*>', '', newstr)
 
 			if '"' in newstr:
-				newstr = "\n" + "There are no scoops!"
+				newstr = "No scoops/nuggets."
 
 			if newstr != "":
-				newerstring += "\n" + newstr
+				newerstring += newstr
 			else:
-				newerstring += "\n" + "There are no scoops!"
+				newerstring += "No scoops/nuggets"
 				scoopstrue = False
 
 		return([headline, publication, newerstring, scoopstrue])

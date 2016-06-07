@@ -9,15 +9,17 @@ class Cues(object):
 
 		recodePhrases = ['multiple sources', 'one source']
 
-		wsjPhrases = ['briefed on the matter', 'people familiar', 'person familiar']
+		wsjPhrases = ['briefed on the matter', 'people familiar', 'person familiar']\
 
-		generalPhrases = ['hearing', 'source', 'sources', 'person familiar', 
-							'people familiar', 'person', 'matter', 
-							'has learned', 'not to be named', 'said the people']
+		thevergePhrases = ["According to sources,", "sources", "various sources"]
+
+		generalPhrases = ['person familiar', 'people familiar', 'souce familiar', 
+								'sources familiar']
 
 		self.phrases = {'TechCrunch': techcrunchPhrases,
 						'Bloomberg': bloombergPhrases,
 						'Recode': recodePhrases,
 						'WSJ': wsjPhrases,
+						'The Verge': thevergePhrases,
 						'General': generalPhrases
 						}
