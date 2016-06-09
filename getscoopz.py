@@ -41,7 +41,8 @@ class GetScoopz(object):
 			publications = ["recode", "techcrunch", "bloomberg", "theinformation", "vanityfair", 
 								"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
 									"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
-									"backchannel", "adage", "medium", "govinsider", "cnet", "reuters"]
+									"backchannel", "adage", "medium", "govinsider", "cnet", "reuters",
+									"pcworld", "statnews", "slack"]
 
 			pubcap = {'recode': 'Recode', 'techcrunch': 'TechCrunch', 'bloomberg': 'Bloomberg', 
 						'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
@@ -50,15 +51,18 @@ class GetScoopz(object):
 						'fusion': 'Fusion', 'anandtech': 'AnandTech', 'engadget': 'Engadget',
 						'latimes': 'Los Angeles Times', 'buzzfeed': 'BuzzFeed', 
 						'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
-						'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters'}
+						'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters',
+						'pcworld': "PCWorld", "statnews": "STAT", "Not found": "Couldn't find publication.",
+						"slack": "Slack blog"}
 
 			pubsplit = urlthing.split("//")
 			pubsplit = pubsplit[1].split(".")
+			pubfalse = True
 			
 			for i in pubsplit:
 				if i in publications:
 					publication = i
-
+				
 			publication = pubcap[publication]
 				
 			paras = str(paras).replace("Inc. ", "")

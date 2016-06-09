@@ -34,18 +34,20 @@ def getScoopz(url):
 		## try to get the name of the publication from the URL
 
 		publications = ["recode", "techcrunch", "bloomberg", "theinformation", "vanityfair", 
-							"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
-								"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
-								"backchannel", "adage", "medium", "govinsider", "cnet", "reuters"]
+								"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
+									"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
+									"backchannel", "adage", "medium", "govinsider", "cnet", "reuters",
+									"pcworld", "statnews"]
 
 		pubcap = {'recode': 'Recode', 'techcrunch': 'TechCrunch', 'bloomberg': 'Bloomberg', 
-					'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
-					'mic': 'Mic', 'venturebeat': 'VentureBeat', 'arstechnica': 'Ars Technica',
-					'motherboard': 'Vice Motherboard', 'ap': 'Associated Press',
-					'fusion': 'Fusion', 'anandtech': 'AnandTech', 'engadget': 'Engadget',
-					'latimes': 'Los Angeles Times', 'buzzfeed': 'BuzzFeed', 
-					'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
-					'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters'}
+						'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
+						'mic': 'Mic', 'venturebeat': 'VentureBeat', 'arstechnica': 'Ars Technica',
+						'motherboard': 'Vice Motherboard', 'ap': 'Associated Press',
+						'fusion': 'Fusion', 'anandtech': 'AnandTech', 'engadget': 'Engadget',
+						'latimes': 'Los Angeles Times', 'buzzfeed': 'BuzzFeed', 
+						'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
+						'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters',
+						'pcworld': "PCWorld", "statnews": "STAT", "Not found": "Couldn't find publication."}
 
 		pubsplit = urlthing.split("//")
 		pubsplit = pubsplit[1].split(".")
@@ -74,12 +76,15 @@ def getScoopz(url):
 
 		splitarray = []
 
-		for i in newarray:
-			s_array = i.split(". ")
+		addsplit = False
+		i = 0
+		while i < len(newarray):
+			s_array = newarray[i].split(". ")
 			for j in s_array:
 				for k in phrases:
 					if k in j:
 						splitarray.append(j + ". ")
+			i += 1	
 
 		newerarray = []
 

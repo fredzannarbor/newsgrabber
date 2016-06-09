@@ -7,9 +7,9 @@ class Cues(object):
 		bloombergPhrases = ['people familiar with the matter', 'person familiar with the matter', 
 								'said the person', 'said the people', 'not authorized to speak']
 
-		recodePhrases = ['multiple sources', 'one source']
+		recodePhrases = ['multiple sources', 'one source', 'sources said', 'sources']
 
-		wsjPhrases = ['briefed on the matter', 'people familiar', 'person familiar']\
+		wsjPhrases = ['briefed on the matter', 'people familiar', 'person familiar']
 
 		thevergePhrases = ["According to sources,", "sources", "various sources"]
 
