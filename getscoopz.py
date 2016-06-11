@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import cues
+import fetchnames
 
 class GetScoopz(object):
 
@@ -13,6 +14,8 @@ class GetScoopz(object):
 	def getScoopz(self, url):
 
 		phrasecues = cues.Cues()
+
+		names = fetchnames.NameFinder()
 
 		scoopstrue = True
 
@@ -42,7 +45,7 @@ class GetScoopz(object):
 								"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
 									"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
 									"backchannel", "adage", "medium", "govinsider", "cnet", "reuters",
-									"pcworld", "statnews", "slack"]
+									"pcworld", "statnews", "slack", "nytimes"]
 
 			pubcap = {'recode': 'Recode', 'techcrunch': 'TechCrunch', 'bloomberg': 'Bloomberg', 
 						'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
@@ -53,18 +56,16 @@ class GetScoopz(object):
 						'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
 						'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters',
 						'pcworld': "PCWorld", "statnews": "STAT", "Not found": "Couldn't find publication.",
-						"slack": "Slack blog"}
+						"slack": "Slack blog", "nytimes": "The New York Times"}
 
 			pubsplit = urlthing.split("//")
 			pubsplit = pubsplit[1].split(".")
-			pubfalse = True
+			publication = "None"
 			
 			for i in pubsplit:
 				if i in publications:
-					publication = i
-				
-			publication = pubcap[publication]
-				
+					publication = pubcap[i]
+							
 			paras = str(paras).replace("Inc. ", "")
 
 			if publication in phrasecues.phrases:

@@ -3,11 +3,16 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import cues
+import fetchnames
 
 def getScoopz(url):
 
 	
 	phrasecues = cues.Cues()
+
+	namefinder = fetchnames.NameFinder()
+
+	namearray = namefinder.namearray
 
 	scoopstrue = True
 
@@ -57,6 +62,8 @@ def getScoopz(url):
 				publication = i
 
 		publication = pubcap[publication]
+
+		print publication
 			
 		paras = str(paras).replace("Inc. ", "")
 
@@ -76,7 +83,6 @@ def getScoopz(url):
 
 		splitarray = []
 
-		addsplit = False
 		i = 0
 		while i < len(newarray):
 			s_array = newarray[i].split(". ")
@@ -87,6 +93,7 @@ def getScoopz(url):
 			i += 1	
 
 		newerarray = []
+
 
 		i = 0
 		while i < len(splitarray):

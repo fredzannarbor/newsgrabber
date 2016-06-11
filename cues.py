@@ -5,7 +5,8 @@ class Cues(object):
 		techcrunchPhrases = ["sources", "we're hearing", 'TechCrunch has learned']
 
 		bloombergPhrases = ['people familiar with the matter', 'person familiar with the matter', 
-								'said the person', 'said the people', 'not authorized to speak']
+								'said the person', 'said the people', 'not authorized to speak', 
+								'people familiar', 'source', 'sources']
 
 		recodePhrases = ['multiple sources', 'one source', 'sources said', 'sources']
 
