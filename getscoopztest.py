@@ -7,12 +7,15 @@ import fetchnames
 
 def getScoopz(url):
 
-	
+	## initialize packages
+
 	phrasecues = cues.Cues()
 
 	namefinder = fetchnames.NameFinder()
 
 	namearray = namefinder.namearray
+
+	articlenames = []
 
 	scoopstrue = True
 
@@ -67,12 +70,47 @@ def getScoopz(url):
 			
 		paras = str(paras).replace("Inc. ", "")
 
+		## Fetch the phrases we're looking for on a per-publicationb basis
+
 		if publication in phrasecues.phrases:
 			phrases = phrasecues.phrases[publication]
 		else:
 			phrases = phrasecues.phrases['General']
 
 		array = str(paras).split("<p>")
+
+
+		## Fetch all the named individuals in the article
+
+		idx = 0
+		for i in array:
+			fresharray = i.split(" ")
+			while idx < len(fresharray):
+				if namefinder.checkName(fresharray[idx].lower()) == True:
+					articlenames.append([fresharray[idx], fresharray[idx+1]])
+				idx += 1
+
+		lastnames = namefinder.getLastNames(articlenames)
+
+		print lastnames
+
+		# lastnamesraw = []
+		# for i in articlenames:
+		# 	lastnamesraw.append(i[1])
+
+		# ## Remove dupes
+
+		# lastnames = []
+		# for i in lastnamesraw:
+		# 	if i not in lastnames:
+		# 		lastnames.append(i)
+		# 	else:
+		# 		pass
+		# print lastnames
+
+
+
+
 
 		newarray = []
 
