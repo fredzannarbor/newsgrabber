@@ -5,6 +5,29 @@ import re
 import cues
 import fetchnames
 
+def getSoup(url):
+
+	skip = False
+
+	headline = "Headline"
+	urlthing = url
+
+	try:	
+		urlopen = urllib2.urlopen(urlthing)
+	except:
+		skip = True
+		newerstring += "\n" + "Can't open the site :("
+
+	if skip == False:
+		read = urlopen.read()
+		soup = BeautifulSoup(read, "html.parser")
+
+		paras = soup.find_all('p')
+		return(paras)
+
+	else:
+		return("Broken")
+
 def getScoopz(url):
 
 	## initialize packages
@@ -18,24 +41,30 @@ def getScoopz(url):
 	scoopstrue = True
 
 	newerstring = ""
-
-	skip = False
-
 	headline = "Headline"
 	urlthing = url
 
-	try:	
-		urlopen = urllib2.urlopen(urlthing)
-	except:
-		skip = True
-		newerstring += "\n" + "Can't open the site :("
+	# skip = False
+
+	# headline = "Headline"
+	# urlthing = url
+
+	# try:	
+	# 	urlopen = urllib2.urlopen(urlthing)
+	# except:
+	# 	skip = True
+	# 	newerstring += "\n" + "Can't open the site :("
 	
-	if skip == False:
+	# if skip == False:
 
-		read = urlopen.read()
-		soup = BeautifulSoup(read, "html.parser")
+	# 	read = urlopen.read()
+	# 	soup = BeautifulSoup(read, "html.parser")
 
-		paras = soup.find_all('p')
+	# 	paras = soup.find_all('p')
+
+	paras = getSoup(url)
+
+	if paras:
 
 		## try to get the name of the publication from the URL
 
@@ -135,6 +164,8 @@ def getScoopz(url):
 			newerstring += "No scoops/nuggets"
 			scoopstrue = False
 
-	return([headline, publication, newerstring, scoopstrue])
+		return([headline, publication, newerstring, scoopstrue])
+	else:
+		return('Broken')
 
 print getScoopz(raw_input("Please enter a URL\n>"))[2]
