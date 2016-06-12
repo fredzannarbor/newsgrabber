@@ -7,7 +7,7 @@ class TechmemeUrls(object):
 
 	def __init__(self):
 
-		pass
+		self.techmemeURLs = self.getTechmemeUrls()
 
 	def getTechmemeUrls(self):
 
@@ -45,6 +45,3 @@ class TechmemeUrls(object):
 			    urls.append([hedstr,url[0]])
 
 		return(urls)
-
-newMeme = TechmemeUrls()
-newMeme.getTechmemeUrls()

@@ -10,10 +10,9 @@ def getSoup(url):
 	skip = False
 
 	headline = "Headline"
-	urlthing = url
 
 	try:	
-		urlopen = urllib2.urlopen(urlthing)
+		urlopen = urllib2.urlopen(url)
 	except:
 		skip = True
 
@@ -33,7 +32,6 @@ def getScoopz(url):
 
 	phrasecues = cues.Cues()
 	namefinder = fetchnames.NameFinder()
-	namearray = namefinder.namearray
 
 	articlenames = []
 
