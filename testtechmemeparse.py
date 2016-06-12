@@ -10,9 +10,9 @@ tmUrls = getTechmemeUrls.TechmemeUrls()
 scoop = getscoopz.GetScoopz()
 
 for i in tmUrls.techmemeURLs:
-	result = scoop.getScoopz(i)
-	print result[1] + ": " + result[0]
-	print result[2]
+	result = scoop.getScoopz(i[1])
+	print result[0] + ": " + i[0]
+	print result[1]
 
 
 

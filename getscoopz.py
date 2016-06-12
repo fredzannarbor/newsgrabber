@@ -36,8 +36,6 @@ class GetScoopz(object):
 
 		phrasecues = cues.Cues()
 		namefinder = fetchnames.NameFinder()
-		headline = url[0]
-		url = url[1]
 
 		articlenames = []
 
@@ -48,24 +46,6 @@ class GetScoopz(object):
 		paras = self.getSoup(url)
 
 		if paras:
-
-			## try to get the name of the publication from the URL
-
-			# publications = ["recode", "techcrunch", "bloomberg", "theinformation", "vanityfair", 
-			# 						"mic", "venturebeat", "arstechnica", "motherboard", "ap", "fusion",
-			# 							"anandtech", "engadget", "latimes", "buzzfeed", "wsj", "theverge", 
-			# 							"backchannel", "adage", "medium", "govinsider", "cnet", "reuters",
-			# 							"pcworld", "statnews"]
-
-			# pubcap = {'recode': 'Recode', 'techcrunch': 'TechCrunch', 'bloomberg': 'Bloomberg', 
-			# 				'theinformation': 'The Information', 'vanityfair': 'Vanity Fair',
-			# 				'mic': 'Mic', 'venturebeat': 'VentureBeat', 'arstechnica': 'Ars Technica',
-			# 				'motherboard': 'Vice Motherboard', 'ap': 'Associated Press',
-			# 				'fusion': 'Fusion', 'anandtech': 'AnandTech', 'engadget': 'Engadget',
-			# 				'latimes': 'Los Angeles Times', 'buzzfeed': 'BuzzFeed', 
-			# 				'wsj': 'The Wall Street Journal', 'theverge': 'The Verge', 'backchannel': 'Backchannel',
-			# 				'adage': 'Ad Age', 'medium': 'Medium', 'cnet': 'CNET', 'reuters': 'Reuters',
-			# 				'pcworld': "PCWorld", "statnews": "STAT", "Not found": "Couldn't find publication."}
 
 			pubsplit = url.split("//")
 			pubsplit = pubsplit[1].split(".")
@@ -145,7 +125,7 @@ class GetScoopz(object):
 				newerstring += "No scoops/nuggets"
 				scoopstrue = False
 
-			return([headline, publication, newerstring, scoopstrue])
+			return([publication, newerstring, scoopstrue])
 		else:
 			return('Broken')
 
