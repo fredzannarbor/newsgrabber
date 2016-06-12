@@ -3,73 +3,40 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import cues
-import fetchnames
+import getsoup
+import getpublication
 
 class GetScoopz(object):
 
 	def __init__(self):
 
-		pass
+		self.getsoup = getsoup.GetSoup()
+		self.phrasecues = cues.Cues()
+		self.getpublication = getpublication.GetPublication()
 
-	def getSoup(self,url):
-
-		skip = False
-
-		try:	
-			urlopen = urllib2.urlopen(url)
-		except:
-			skip = True
-
-		if skip == False:
-			read = urlopen.read()
-			soup = BeautifulSoup(read, "html.parser")
-
-			paras = soup.find_all('p')
-			return(paras)
-
-		else:
-			return None
-
-	def getScoopz(self,url):
-
-		## initialize packages
-
-		phrasecues = cues.Cues()
-		namefinder = fetchnames.NameFinder()
+	def getScoopz(self,url):	
 
 		articlenames = []
 
-		scoopstrue = True
-
 		newerstring = ""
 
-		paras = self.getSoup(url)
+		paras = self.getsoup.getSoup(url)
 
 		if paras:
 
-			pubsplit = url.split("//")
-			pubsplit = pubsplit[1].split(".")
 			
-			for i in pubsplit:
-				if i in phrasecues.publications:
-					publication = i
-			try:
-				publication = phrasecues.pubcap[publication]
-			except:
-				publication = "Not found."
+			publication = self.getpublication.getPublication(url)
 				
 			paras = str(paras).replace("Inc. ", "")
 
-			## Fetch the phrases we're looking for on a per-publicationb basis
-
-			if publication in phrasecues.phrases:
-				phrases = phrasecues.phrases[publication]
-			else:
-				phrases = phrasecues.phrases['General']
+			## Fetch the phrases we're looking for on a per-publication basis
 
 			array = str(paras).split("<p>")
 
-			lastnames = namefinder.getLastNames(namefinder.getNameArray(array))
+			if publication in self.phrasecues.phrases:
+				phrases = self.phrasecues.phrases[publication]
+			else:
+				phrases = self.phrasecues.phrases['General']
 
 			newarray = []
 
@@ -125,7 +92,7 @@ class GetScoopz(object):
 				newerstring += "No scoops/nuggets"
 				scoopstrue = False
 
-			return([publication, newerstring, scoopstrue])
+			return([publication, newerstring])
 		else:
 			return('Broken')
 
