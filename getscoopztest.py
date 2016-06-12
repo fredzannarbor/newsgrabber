@@ -16,7 +16,6 @@ def getSoup(url):
 		urlopen = urllib2.urlopen(urlthing)
 	except:
 		skip = True
-		newerstring += "\n" + "Can't open the site :("
 
 	if skip == False:
 		read = urlopen.read()
@@ -26,7 +25,7 @@ def getSoup(url):
 		return(paras)
 
 	else:
-		return("Broken")
+		return None
 
 def getScoopz(url):
 
@@ -43,24 +42,6 @@ def getScoopz(url):
 	newerstring = ""
 	headline = "Headline"
 	urlthing = url
-
-	# skip = False
-
-	# headline = "Headline"
-	# urlthing = url
-
-	# try:	
-	# 	urlopen = urllib2.urlopen(urlthing)
-	# except:
-	# 	skip = True
-	# 	newerstring += "\n" + "Can't open the site :("
-	
-	# if skip == False:
-
-	# 	read = urlopen.read()
-	# 	soup = BeautifulSoup(read, "html.parser")
-
-	# 	paras = soup.find_all('p')
 
 	paras = getSoup(url)
 
@@ -90,10 +71,10 @@ def getScoopz(url):
 		for i in pubsplit:
 			if i in publications:
 				publication = i
-
-		publication = pubcap[publication]
-
-		print publication
+		try:
+			publication = pubcap[publication]
+		except:
+			publication = "Not found."
 			
 		paras = str(paras).replace("Inc. ", "")
 
@@ -107,8 +88,6 @@ def getScoopz(url):
 		array = str(paras).split("<p>")
 
 		lastnames = namefinder.getLastNames(namefinder.getNameArray(array))
-
-		print lastnames
 
 		newarray = []
 
@@ -168,4 +147,5 @@ def getScoopz(url):
 	else:
 		return('Broken')
 
-print getScoopz(raw_input("Please enter a URL\n>"))[2]
+
+print getScoopz(raw_input("Please enter a URL\n>"))
