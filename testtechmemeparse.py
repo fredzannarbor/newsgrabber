@@ -29,6 +29,10 @@ url = raw_input("Please enter a URL\n>")
 data = soup.getSoup(url)
 paras = metadata.getParas(data)
 
+
 returner = quotes.getQuotes(paras)
 for i in returner:
 	print i
+
+# scoops = scoop.getScoopz(url)
+# print scoops[0] + ": " + scoops[1]

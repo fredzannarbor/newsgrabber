@@ -25,12 +25,8 @@ class GetQuotes(object):
 			fullquotearray = []
 
 			for i in paras:
+				namereturn = "Not found"
 				j = 0
-				for name in lastnames:
-					if name in i:
-						namereturn = name
-					else:
-						namereturn = "Not found"
 				while j < len(i):
 					if i[j] == '"':
 						quoteget = ''
@@ -39,6 +35,9 @@ class GetQuotes(object):
 							quoteget += i[k]
 							k += 1
 						j = k
+						for name in lastnames:
+							if name not in quoteget and name in i:
+								namereturn = name
 						quotearray.append([namereturn, re.sub(r'<[^>]*>', '', quoteget)])
 					j += 1
 
