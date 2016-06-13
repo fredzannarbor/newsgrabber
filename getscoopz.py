@@ -4,7 +4,7 @@ import requests
 import re
 import cues
 import getsoup
-import getpublication
+import getmetadata
 
 class GetScoopz(object):
 
@@ -12,7 +12,7 @@ class GetScoopz(object):
 
 		self.getsoup = getsoup.GetSoup()
 		self.phrasecues = cues.Cues()
-		self.getpublication = getpublication.GetPublication()
+		self.getmetadata = getmetadata.GetMetadata()
 
 	def getScoopz(self,url):	
 
@@ -23,15 +23,16 @@ class GetScoopz(object):
 		paras = self.getsoup.getSoup(url)
 
 		if paras:
-
 			
-			publication = self.getpublication.getPublication(url)
+			publication = self.getmetadata.getPublication(url)
 				
-			paras = str(paras).replace("Inc. ", "")
+			# paras = str(paras).replace("Inc. ", "")
+			# paras = paras.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
+			# paras = paras.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "").replace('\u2014',"")
+
+			array = self.getmetadata.getParas(paras)
 
 			## Fetch the phrases we're looking for on a per-publication basis
-
-			array = str(paras).split("<p>")
 
 			if publication in self.phrasecues.phrases:
 				phrases = self.phrasecues.phrases[publication]
@@ -76,8 +77,8 @@ class GetScoopz(object):
 
 			## Remove codes
 
-			newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
-			newstr = newstr.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "").replace('\u2014',"")
+			# newstr = newstr.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
+			# newstr = newstr.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "").replace('\u2014',"")
 
 			## Remove links
 

@@ -5,12 +5,12 @@ import re
 import cues
 import getsoup
 
-
-class GetPublication(object):
+class GetMetadata(object):
 
 	def __init__(self):
-		self.getsoup = getsoup.GetSoup()
+
 		self.phrasecues = cues.Cues()
+		self.getsoup = getsoup.GetSoup()
 
 	def getPublication(self,url):
 
@@ -26,3 +26,11 @@ class GetPublication(object):
 			publication = "Not found."
 
 		return(publication)
+
+	def getParas(self,soup):
+
+		paras = str(soup).replace("Inc. ", "")
+		paras = paras.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
+		paras = paras.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "").replace('\u2014',"")
+		array = str(paras).split("<p>")
+		return(array)

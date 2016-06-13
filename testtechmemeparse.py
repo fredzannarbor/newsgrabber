@@ -6,8 +6,15 @@ import getTechmemeUrls
 import getscoopz
 import cues
 import getsoup
+import fetchquotes
+import fetchnames
+import getmetadata
 
 scoop = getscoopz.GetScoopz()
+quotes = fetchquotes.GetQuotes()
+names = fetchnames.NameFinder()
+soup = getsoup.GetSoup()
+metadata = getmetadata.GetMetadata()
 
 
 # tmUrls = getTechmemeUrls.TechmemeUrls()
@@ -19,5 +26,9 @@ scoop = getscoopz.GetScoopz()
 
 
 url = raw_input("Please enter a URL\n>")
+data = soup.getSoup(url)
+paras = metadata.getParas(data)
 
-print scoop.getScoopz(url)
+returner = quotes.getQuotes(paras)
+for i in returner:
+	print i

@@ -37,6 +37,7 @@ class NameFinder(object):
 	def getLastNames(self, array):
 
 		lastnamesraw = []
+		array = self.getNameArray(array)
 		for i in array:
 			lastnamesraw.append(i[1])
 
