@@ -24,6 +24,8 @@ class GetQuotes(object):
 			quotearray = []
 			fullquotearray = []
 
+			ignoreterms = ['title', 'caption', 'meta-credit', '_blank', 'google_elide']
+
 			for i in paras:
 				namereturn = "Not found"
 				j = 0
@@ -38,7 +40,11 @@ class GetQuotes(object):
 						for name in lastnames:
 							if name not in quoteget and name in i:
 								namereturn = name
-						quotearray.append([namereturn, re.sub(r'<[^>]*>', '', quoteget)])
+						quoteget = re.sub(r'<[^>]*>', '', quoteget)
+						if quoteget not in ignoreterms:
+							quotearray.append([namereturn, quoteget])
+						else:
+							pass
 					j += 1
 
 			for i in quotearray:
