@@ -25,8 +25,9 @@ class GetQuotes(object):
 			fullquotearray = []
 
 			ignoreterms = ['title', 'caption', 'meta-credit', '_blank', 'google_elide']
-
+			givearray = []
 			for i in paras:
+				returnarray = []
 				namereturn = "Not found"
 				j = 0
 				while j < len(i):
@@ -42,13 +43,23 @@ class GetQuotes(object):
 								namereturn = name
 						quoteget = re.sub(r'<[^>]*>', '', quoteget)
 						if quoteget not in ignoreterms:
-							quotearray.append([namereturn, quoteget])
+							returnarray.append([namereturn, quoteget])
 						else:
 							pass
 					j += 1
 
-			for i in quotearray:
-				if 'http' in i[1]:
+				# joins the quotes together
+					
+				quoteadd = ""
+				for i in returnarray:
+					quoteadd += " " + i[1]
+				givearray.append([i[0], quoteadd])
+
+
+			for i in givearray:
+				if 'https' in i[1] or 'http' in i[1]:
+					pass
+				elif i[1] == '':
 					pass
 				else:
 					fullquotearray.append(i)

@@ -21,6 +21,8 @@ class Cues(object):
 		reutersPhrases = ['people with knowledge of the matter', 'person with knowledge of the matter',
 								'sources said', 'source said']
 
+		informationPhrases = ['familiar']
+
 		generalPhrases = ['person familiar', 'people familiar', 'source familiar', 
 								'sources familiar']
 
@@ -48,5 +50,6 @@ class Cues(object):
 						'WSJ': wsjPhrases,
 						'The Verge': thevergePhrases,
 						'BuzzFeed': buzzfeedPhrases,
+						'The Information': informationPhrases,
 						'General': generalPhrases
 						}

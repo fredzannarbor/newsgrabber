@@ -35,4 +35,4 @@ for i in returner:
 	print i
 
 # scoops = scoop.getScoopz(url)
-# print scoops[0] + ": " + scoops[1]
+# print scoops
