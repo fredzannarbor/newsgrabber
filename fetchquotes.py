@@ -20,35 +20,49 @@ class GetQuotes(object):
 		if paras:
 
 			lastnames = self.namefinder.getLastNames(paras)
-			print lastnames
 			quotearray = []
 			fullquotearray = []
 
 			ignoreterms = ['title', 'caption', 'meta-credit', '_blank', 'google_elide']
 			givearray = []
 			for i in paras:
+
+				truename = False
 				returnarray = []
-				namereturn = "Not found"
 				j = 0
+
 				while j < len(i):
+					
 					if i[j] == '"':
+
 						quoteget = ''
 						k = j+1
 						startindex = k
+
 						while i[k] != '"':
 							quoteget += i[k]
 							k += 1
 						j = k
+
 						endindex = k
 						coords = [startindex, endindex]
+
 						for name in lastnames:
-							if name not in quoteget and name in i:
-								namereturn = name
+							if name in i:
+								truename = True
+
+						if truename:
+							namereturn = self.getProximity(i, lastnames, coords)
+						else:
+							namereturn = "Not found"
+
 						quoteget = re.sub(r'<[^>]*>', '', quoteget)
+
 						if quoteget not in ignoreterms:
-							returnarray.append([namereturn, quoteget, coords])
+							returnarray.append([namereturn, quoteget])
 						else:
 							pass
+
 					j += 1
 
 				# joins the quotes together
@@ -73,7 +87,7 @@ class GetQuotes(object):
 
 		# writing a method that determines the general proximity of names and quotes in a sentence
 		# this is going to be super janky to start and need extensive refining, there are going to be
-		# a lot of edge cases to account for
+		# a lot of edge cases to account for. the general idea is the "said ___" should be close enough
 
 		proxarray = []
 		distancearray = []
