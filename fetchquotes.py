@@ -34,16 +34,18 @@ class GetQuotes(object):
 					if i[j] == '"':
 						quoteget = ''
 						k = j+1
+						startindex = k
 						while i[k] != '"':
 							quoteget += i[k]
 							k += 1
 						j = k
+						endindex = k
 						for name in lastnames:
 							if name not in quoteget and name in i:
 								namereturn = name
 						quoteget = re.sub(r'<[^>]*>', '', quoteget)
 						if quoteget not in ignoreterms:
-							returnarray.append([namereturn, quoteget])
+							returnarray.append([namereturn, quoteget, [startindex, endindex]])
 						else:
 							pass
 					j += 1
@@ -65,3 +67,9 @@ class GetQuotes(object):
 					fullquotearray.append(i)
 
 			return fullquotearray
+
+	def getProximity(self, para, names, indices):
+
+		# writing a method that determines the general proximity of names and quotes in a sentence
+
+		
