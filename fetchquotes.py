@@ -40,12 +40,13 @@ class GetQuotes(object):
 							k += 1
 						j = k
 						endindex = k
+						coords = [startindex, endindex]
 						for name in lastnames:
 							if name not in quoteget and name in i:
 								namereturn = name
 						quoteget = re.sub(r'<[^>]*>', '', quoteget)
 						if quoteget not in ignoreterms:
-							returnarray.append([namereturn, quoteget, [startindex, endindex]])
+							returnarray.append([namereturn, quoteget, coords])
 						else:
 							pass
 					j += 1
@@ -71,5 +72,44 @@ class GetQuotes(object):
 	def getProximity(self, para, names, indices):
 
 		# writing a method that determines the general proximity of names and quotes in a sentence
+		# this is going to be super janky to start and need extensive refining, there are going to be
+		# a lot of edge cases to account for
 
-		
+		proxarray = []
+		distancearray = []
+
+		for i in names:
+			
+			j = 0
+
+			# get coords of names in story
+
+			while j < len(para) - len(i):
+				if i[j:j+len(i)] == i:
+					idx = j
+					proxarray.append([i, idx])
+				j += 1
+
+		# get the distance to the quote
+
+		for i in proxarray:
+
+			frontdistance = indices[0] - i[1]
+			backdistance = indices[1] - i[1]
+			distance = min(frontdistance,backdistance)
+			distancearray.append([i[0], distance])
+
+		# score the distances
+
+		i = 0
+		while i < len(distancearray)-1:
+
+			if distancearray[i][1] < distancearray[i+1][1]:
+				minindex = i
+			else:
+				minindex = i+1
+			i += 1
+
+		# return the name that's closest	
+
+		return distancearray[minindex][0]
