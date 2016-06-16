@@ -19,10 +19,17 @@ class GetAction(object):
 
 		pass
 
+		## return anecdotes
+
 	def getAction(self, sentence):
 
 		pass
 
+
+		## return action
+
 	def rankAction(self, sentences):
 
 		pass
+
+		## return topAction
