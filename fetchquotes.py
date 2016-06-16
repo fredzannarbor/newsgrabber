@@ -93,37 +93,45 @@ class GetQuotes(object):
 		distancearray = []
 
 		for i in names:
-			
-			j = 0
+				
+			if i in para:
+				
+				j = 0
 
-			# get coords of names in story
+				# get coords of names in story
 
-			while j < len(para) - len(i):
-				if i[j:j+len(i)] == i:
-					idx = j
-					proxarray.append([i, idx])
-				j += 1
+				while j < len(para) - len(i):
+					if para[j:j+len(i)] == i:
+						idx = j
+						proxarray.append([i, idx])
+					j += 1
 
 		# get the distance to the quote
 
-		for i in proxarray:
+		if proxarray != []:
 
-			frontdistance = indices[0] - i[1]
-			backdistance = indices[1] - i[1]
-			distance = min(frontdistance,backdistance)
-			distancearray.append([i[0], distance])
+			for i in proxarray:
 
-		# score the distances
+				frontdistance = abs(indices[0] - i[1])
+				backdistance = abs(indices[1] - i[1])
+				distance = min(frontdistance,backdistance)
+				distancearray.append([i[0], distance])
 
-		i = 0
-		while i < len(distancearray)-1:
+			# score the distances
 
-			if distancearray[i][1] < distancearray[i+1][1]:
-				minindex = i
-			else:
-				minindex = i+1
-			i += 1
+			i = 0
+			while i < len(distancearray)-1:
 
-		# return the name that's closest	
+				if distancearray[i][1] < distancearray[i+1][1]:
+					minindex = i
+				else:
+					minindex = i+1
+				i += 1
 
-		return distancearray[minindex][0]
+			# return the name that's closest	
+
+			return distancearray[minindex][0]
+
+		else:
+
+			return "Not found"
