@@ -17,22 +17,22 @@ soup = getsoup.GetSoup()
 metadata = getmetadata.GetMetadata()
 
 
-# tmUrls = getTechmemeUrls.TechmemeUrls()
-# for i in tmUrls.techmemeURLs:
-# 	result = scoop.getScoopz(i[1])
-# 	print result[0] + ": " + i[0]
-# 	print result[1]
+tmUrls = getTechmemeUrls.TechmemeUrls()
+for i in tmUrls.techmemeURLs:
+	result = scoop.getScoopz(i[1])
+	print result[0] + ": " + i[0]
+	print result[1]
 
 
 
-url = raw_input("Please enter a URL\n>")
-data = soup.getSoup(url)
-paras = metadata.getParas(data)
+# url = raw_input("Please enter a URL\n>")
+# data = soup.getSoup(url)
+# paras = metadata.getParas(data)
 
 
-returner = quotes.getQuotes(paras)
-for i in returner:
-	print i
+# returner = quotes.getQuotes(paras)
+# for i in returner:
+# 	print i
 
 # scoops = scoop.getScoopz(url)
 # print scoops

@@ -6,11 +6,13 @@ import cues
 import fetchnames
 import getsoup
 import getmetadata
+import sqlite3
 
 class GetQuotes(object):
 
 	def __init__(self):
 
+		self.connection = sqlite3.connect("names.db")
 		self.getsoup = getsoup.GetSoup()
 		self.namefinder = fetchnames.NameFinder()
 		self.getmetadata = getmetadata.GetMetadata()
@@ -135,3 +137,7 @@ class GetQuotes(object):
 		else:
 
 			return "Not found"
+
+	def updateNameDB(self,name):
+
+		## Updates the database with the name count
