@@ -15,9 +15,18 @@ fetcharray = []
 
 result = cursor.fetchall()
 for i in result:
-	fetcharray.append(i)
+	print i 
+# for i in result:
+# 	if len(i)>1:
+# 		fetcharray.append([i[0].lower(), i[1]])
+# 	else:
+# 		fetcharray.append([i[0].lower(), None])
 
-print fetcharray
+# print fetcharray
+
+# for i in fetcharray:
+# 	if i == 'aaron':
+# 		cursor.execute("UPDATE NAME SET COUNT = COUNT+1 WHERE NAME ='AARON'")
 
 cursor.close()
 
