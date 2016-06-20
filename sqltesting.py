@@ -15,20 +15,23 @@ fetcharray = []
 
 result = cursor.fetchall()
 for i in result:
-	print i 
-# for i in result:
+	print i
+
+# 	name = str(i[0]).lower()
 # 	if len(i)>1:
-# 		fetcharray.append([i[0].lower(), i[1]])
+# 		fetcharray.append([name,i[1]])
 # 	else:
-# 		fetcharray.append([i[0].lower(), None])
+# 		fetcharray.append([name, None])
 
 # print fetcharray
 
 # for i in fetcharray:
-# 	if i == 'aaron':
-# 		cursor.execute("UPDATE NAME SET COUNT = COUNT+1 WHERE NAME ='AARON'")
+# 	if i[0] == 'aaron' and i[1] == None:
+# 		cursor.execute("UPDATE commonnames SET COUNT=1 WHERE NAME='AARON'")
+# 	elif i[0] == 'aaron':
+# 		cursor.execute("UPDATE commonnames SET COUNT=COUNT+1 WHERE NAME='AARON'")
 
-cursor.close()
+# # cursor.close()
 
 # print("\nfetch one:")
 # res = cursor.fetchall("""
