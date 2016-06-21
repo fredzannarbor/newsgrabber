@@ -6,13 +6,11 @@ import cues
 import fetchnames
 import getsoup
 import getmetadata
-import sqlite3
 
 class GetQuotes(object):
 
 	def __init__(self):
 
-		self.connection = sqlite3.connect("names.db")
 		self.getsoup = getsoup.GetSoup()
 		self.namefinder = fetchnames.NameFinder()
 		self.getmetadata = getmetadata.GetMetadata()
@@ -97,7 +95,7 @@ class GetQuotes(object):
 		for i in names:
 				
 			if i in para:
-				
+
 				j = 0
 
 				# get coords of names in story
@@ -112,27 +110,26 @@ class GetQuotes(object):
 
 		if proxarray != []:
 
-			for i in proxarray:
+			frontdistance = abs(indices[0] - proxarray[0][1])
+			backdistance = abs(indices[1] - proxarray[0][1])
+			distance = min(frontdistance,backdistance)
+			namereturn = proxarray[0][0]
 
-				frontdistance = abs(indices[0] - i[1])
-				backdistance = abs(indices[1] - i[1])
-				distance = min(frontdistance,backdistance)
-				distancearray.append([i[0], distance])
+			i = 1
+			
+			while i < len(proxarray):
 
-			# score the distances
+				frontdistance = abs(indices[0] - proxarray[i][1])
+				backdistance = abs(indices[1] - proxarray[i][1])
+				newdistance = min(frontdistance,backdistance)
+				
+				if newdistance < distance:
+					distance = newdistance
+					namereturn = proxarray[i][0]
 
-			i = 0
-			while i < len(distancearray)-1:
+				i += 1		
 
-				if distancearray[i][1] < distancearray[i+1][1]:
-					minindex = i
-				else:
-					minindex = i+1
-				i += 1
-
-			# return the name that's closest	
-
-			return distancearray[minindex][0]
+			return namereturn
 
 		else:
 
@@ -140,4 +137,5 @@ class GetQuotes(object):
 
 	def updateNameDB(self,name):
 
-		## Updates the database with the name count
+		## Updates the database
+		pass

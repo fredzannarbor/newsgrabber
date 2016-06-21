@@ -6,8 +6,8 @@ class NameFinder(object):
 
 	def __init__(self):
 
-		f = open('names.csv')
-		csv_f = csv.reader(f)
+		f = open('names.csv', 'rU')
+		csv_f = csv.reader(f, dialect=csv.excel_tab)
 		namearray = []
 		for row in csv_f:
 			for i in row:
@@ -42,6 +42,7 @@ class NameFinder(object):
 			lastnamesraw.append(i[1])
 
 		## Remove commas
+
 		nextarray = []
 		for i in lastnamesraw:
 			nextarray.append(re.sub(r',', '', i))
