@@ -15,7 +15,11 @@ class NameFinder(object):
 
 		self.namearray = namearray
 
+		if 'randy' in namearray:
+			print 'in there'
+
 	def checkName(self, word):
+
 		if word in self.namearray:
 			return True
 		else:
@@ -31,7 +35,7 @@ class NameFinder(object):
 				if self.checkName(fresharray[idx].lower()) == True:
 					articlenames.append([fresharray[idx], fresharray[idx+1]])
 				idx += 1
-		return(articlenames)
+		return articlenames
 
 
 	def getLastNames(self, array):

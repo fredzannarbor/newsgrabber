@@ -48,7 +48,7 @@ class GetQuotes(object):
 						coords = [startindex, endindex]
 
 						for name in lastnames:
-							if name in i:
+							if name in i and name not in quoteget:
 								truename = True
 
 						if truename:
@@ -110,24 +110,23 @@ class GetQuotes(object):
 
 		if proxarray != []:
 
-			frontdistance = abs(indices[0] - proxarray[0][1])
-			backdistance = abs(indices[1] - proxarray[0][1])
-			distance = min(frontdistance,backdistance)
-			namereturn = proxarray[0][0]
+			proxcheckarray = []
 
-			i = 1
-			
-			while i < len(proxarray):
+			for i in proxarray:
 
-				frontdistance = abs(indices[0] - proxarray[i][1])
-				backdistance = abs(indices[1] - proxarray[i][1])
-				newdistance = min(frontdistance,backdistance)
-				
-				if newdistance < distance:
-					distance = newdistance
-					namereturn = proxarray[i][0]
+				frontdistance = abs(indices[0] - i[1])
+				backdistance = abs(indices[1] - i[1])
+				distance = min(frontdistance,backdistance)
+				proxcheckarray.append([i[0], distance])
 
-				i += 1		
+			checkdistance = proxcheckarray[0][1]
+			namereturn = proxcheckarray[0][0]
+
+			for i in proxcheckarray:
+
+				if i[1] < checkdistance:
+					checkdistance = i[1]
+					namereturn = i[0]			
 
 			return namereturn
 
