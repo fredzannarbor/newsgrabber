@@ -31,7 +31,7 @@ class GetAction(object):
 
 	def getAnecdote(self, paras):
 
-		verbs = []
+		verbcheck = []
 		anectodes = []
 
 		if paras:
