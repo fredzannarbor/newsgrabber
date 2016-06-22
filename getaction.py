@@ -156,6 +156,8 @@ class GetAction(object):
 
 		self.cursor.execute("UPDATE ACTION SET ACTION=? WHERE VERB=?", (counts, verb, ))
 
+		cursor.commit()
+
 		return None
 
 	def isAnecdote(self):
