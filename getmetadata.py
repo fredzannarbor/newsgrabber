@@ -33,4 +33,5 @@ class GetMetadata(object):
 		paras = paras.replace("</p>, ", "").replace("\u2019", "'").replace("\\xa0", " ")
 		paras = paras.replace("\n\n.","").replace('\u201c', "").replace('\u201d', "").replace('\u2014',"")
 		array = str(paras).split("<p>")
-		return(array)
+
+		return array
