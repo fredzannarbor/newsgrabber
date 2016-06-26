@@ -180,7 +180,16 @@ read = urlopen.read()
 soup = BeautifulSoup(read, "html.parser")
 soupnew = soup.find_all('p')
 paras = actiontest.getmetadata.getParas(soupnew)
-for i in paras:
-	for j in i:
+array = []
+i = 0
+while i < len(paras):
+	passtest = False
+	array = paras[i].split(" ")
+	for j in array:
 		if j in actiontest.verbs:
-			print j
+			passtest = True
+			print paras[i]
+			i += 1
+			break
+	if passtest == False:
+		i += 1
