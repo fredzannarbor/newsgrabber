@@ -18,8 +18,8 @@ class GetAction(object):
 		self.getsoup = getsoup.GetSoup()
 		self.namefinder = fetchnames.NameFinder()
 		self.getmetadata = getmetadata.GetMetadata()
-		connection = sqlite3.connect("verbstest.db")
-		self.cursor = connection.cursor()
+		self.connection = sqlite3.connect("verbstest.db")
+		self.cursor = self.connection.cursor()
 		self.cursor.execute("SELECT * FROM commonverbs")
 		self.verbarray = []
 		self.verbs = []
@@ -150,16 +150,20 @@ class GetAction(object):
 		## This method will increment or decrement the count of the verb action in the database
 
 		self.cursor.execute("SELECT ACTION FROM commonverbs WHERE VERB=?", (verb, ))
-		counts = self.cursor.fetchall()
+		countsreturn = self.cursor.fetchall()
+		for i in countsreturn:
+			counts = i[0]
 
 		if direction == 'pos':
 			counts += 1
+			print "Counts up"
 		else:
+			print "Counts down"
 			counts -= 1
 
-		self.cursor.execute("UPDATE ACTION SET ACTION=? WHERE VERB=?", (counts, verb, ))
+		self.cursor.execute("UPDATE commonverbs SET ACTION=? WHERE VERB=?", (counts, verb, ))
 
-		cursor.commit()
+		self.connection.commit()
 
 		return None
 
@@ -181,15 +185,26 @@ soup = BeautifulSoup(read, "html.parser")
 soupnew = soup.find_all('p')
 paras = actiontest.getmetadata.getParas(soupnew)
 array = []
+parasarray = []
 i = 0
 while i < len(paras):
 	passtest = False
-	array = paras[i].split(" ")
+	array = paras[i].split(".")
+	secondsplit = []
+	print paras[i]
 	for j in array:
-		if j in actiontest.verbs:
-			passtest = True
-			print paras[i]
-			i += 1
-			break
-	if passtest == False:
-		i += 1
+		secondsplit.append(j.split(" "))
+		for k in secondsplit:
+			for l in k:
+				if l in actiontest.verbs:
+					passtest = True
+					print j
+					print "Verb: " + l
+					goodaction = raw_input("Is this an action statement with the right verb?\n>")
+					if goodaction == 'y':
+						actiontest.moveAction(l, 'pos')
+					elif goodaction == 's':
+						pass	
+					else:
+						actiontest.moveAction(l, 'neg')
+	i += 1
