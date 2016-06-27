@@ -188,7 +188,6 @@ array = []
 parasarray = []
 i = 0
 while i < len(paras):
-	passtest = False
 	array = paras[i].split(".")
 	secondsplit = []
 	for j in array:
