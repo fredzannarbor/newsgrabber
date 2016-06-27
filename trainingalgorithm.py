@@ -191,13 +191,11 @@ while i < len(paras):
 	passtest = False
 	array = paras[i].split(".")
 	secondsplit = []
-	print paras[i]
 	for j in array:
 		secondsplit.append(j.split(" "))
 		for k in secondsplit:
 			for l in k:
 				if l in actiontest.verbs:
-					passtest = True
 					print j
 					print "Verb: " + l
 					goodaction = raw_input("Is this an action statement with the right verb?\n>")
