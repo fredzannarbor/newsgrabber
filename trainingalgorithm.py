@@ -189,8 +189,8 @@ parasarray = []
 i = 0
 while i < len(paras):
 	array = paras[i].split(".")
-	secondsplit = []
 	for j in array:
+		secondsplit = []
 		secondsplit.append(j.split(" "))
 		for k in secondsplit:
 			for l in k:
