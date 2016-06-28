@@ -188,7 +188,8 @@ array = []
 parasarray = []
 i = 0
 while i < len(paras):
-	array = paras[i].split(".")
+	parastring = re.sub(r'<[^>]*>', '', paras[i])
+	array = parastring.split(".")
 	for j in array:
 		secondsplit = []
 		secondsplit.append(j.split(" "))
