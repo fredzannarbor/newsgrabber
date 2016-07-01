@@ -14,5 +14,12 @@ def home(URL=None):
     
     return render_template('hello.html')
 
+@application.route("/grab", methods=['GET', 'POST'])
+def grab(result=None):
+
+	formdata['URL'] = request.form['URL']
+
+	return render_template('grab.html', result=formdata['URL'])
+
 if __name__ == '__main__':
 	application.run()
