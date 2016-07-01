@@ -206,3 +206,6 @@ while i < len(paras):
 					else:
 						actiontest.moveAction(l, 'neg')
 	i += 1
+
+
+## Include something that does source familiar to teach stronger words/algos
