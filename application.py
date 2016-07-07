@@ -1,25 +1,55 @@
+from flask import *
 import urllib2
 from bs4 import BeautifulSoup
 import requests
 import re
 import getTechmemeUrls
 import getscoopz
-from flask import *
+import cues
+import getsoup
+import getmetadata
 
-application = Flask(__name__)
+app = Flask(__name__)
+scoop = getscoopz.GetScoopz()
+soup = getsoup.GetSoup()
+metadata = getmetadata.GetMetadata()
 
-## This will basically extract any novel information or scoops from a story.
-@application.route("/", methods=['GET', 'POST'])
-def home(URL=None):
+@app.route("/", methods=['GET', 'POST'])
+
+def home():
     
     return render_template('hello.html')
 
-@application.route("/grab", methods=['GET', 'POST'])
-def grab(result=None):
+@app.route("/grab", methods=['GET', 'POST'])
 
-	formdata['URL'] = request.form['URL']
+def grab():
 
-	return render_template('grab.html', result=formdata['URL'])
+	formdata = {}
+	url = request.form['link']
+	scoops = scoop.getScoopz(url)
+	formdata['publication'] = scoops[0]
+	formdata['scoops'] = scoops[1]
+
+	return render_template('grab.html', scoops=formdata)
+
+@app.route("/techmeme", methods=['GET', 'POST'])
+
+def techmeme():
+
+	returnform = []
+
+	tmUrls = getTechmemeUrls.TechmemeUrls()
+
+	for i in tmUrls.techmemeURLs:
+
+		# an_item = dict(headline=i[0], url=i[1])
+		# returnform.append(an_item)
+
+		result = scoop.getScoopz(i[1])
+		an_item = dict(publication=result[0], headline=i[0], scoops=result[1])
+		returnform.append(an_item)
+
+	return render_template('techmeme.html', scoops=returnform)
 
 if __name__ == '__main__':
-	application.run()
+	app.run()

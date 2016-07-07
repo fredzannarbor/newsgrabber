@@ -1,7 +1,5 @@
-<body>
-	<form action="{{ url_for('grab') }}" method=post>
-		Enter a URL:
-		<input type="text" name="URL">
-		<input type=submit>
-	</form>
-</body>
+<h1>Input a URL</h1>
+<form method="post" action="{{ url_for('grab') }}">
+    <p><label>URL:</label> <input type="text" name="link"></p>
+    <p><button type="submit">Send</button></p>
+</form>

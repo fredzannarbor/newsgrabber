@@ -15,9 +15,6 @@ class NameFinder(object):
 
 		self.namearray = namearray
 
-		if 'randy' in namearray:
-			print 'in there'
-
 	def checkName(self, word):
 
 		if word in self.namearray:
